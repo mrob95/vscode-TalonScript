@@ -1,0 +1,25 @@
+{
+    "name": "vscode-talonscript",
+    "displayName": "TalonScript",
+    "description": "Syntax highlighting for TalonScript files.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.43.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "talon",
+            "aliases": ["TalonScript", "talon"],
+            "extensions": [".talon"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "talon",
+            "scopeName": "source.talon",
+            "path": "./syntaxes/talon.tmLanguage.json"
+        }]
+    }
+}
