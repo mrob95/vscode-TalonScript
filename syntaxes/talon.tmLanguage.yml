@@ -1,9 +1,8 @@
 ---
 name: TalonScript
 patterns:
+  - include: "#body"
   - include: "#context"
-  - include: "#rule-definition"
-  - include: "#statement-indented"
   - include: "#comment"
 repository:
   context:
@@ -12,26 +11,32 @@ repository:
     captures:
       "3":
         patterns:
-          - match: "(/([^/\\\\]|\\\\.)*/)"
+          - match: (/.*/)
             name: string.regexp
-          - match: ".*"
+          - match: .*
             name: entity.name.type
+  body:
+    begin: ^-$
+    end: (?=not)possible
+    patterns:
+      - include: "#rule-definition"
+      - include: "#statement-indented"
   capture:
-    match: "(\\<[a-z0-9]+\\>)"
+    match: (\<[a-z0-9]+\>)
     name: variable.parameter
   list:
-    match: "({[a-z0-9]+?})"
+    match: ({[a-z0-9]+?})
     name: string.interpolated
   comment:
-    match: "^(#.*)$"
+    match: ^(#.*)$
     name: comment.line.number-sign
   qstring-double:
-    match: "(\".+?\")"
+    match: (".+?")
     name: string.quoted.double
     captures:
       "1":
         patterns:
-          - match: "({[a-z0-9]+})"
+          - match: ({[a-z0-9]+})
             name: constant.character.format.placeholder.other
   action:
     match: "[a-zA-Z0-9._]+\\((.*)\\)"
@@ -53,7 +58,7 @@ repository:
         patterns:
           - include: "#statement"
   statement-indented:
-    match: "^\\s+(.*)$"
+    match: ^\s+(.*)$
     captures:
       "1":
         patterns:

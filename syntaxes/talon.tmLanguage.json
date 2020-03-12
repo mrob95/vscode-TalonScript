@@ -2,13 +2,10 @@
   "name": "TalonScript",
   "patterns": [
     {
+      "include": "#body"
+    },
+    {
       "include": "#context"
-    },
-    {
-      "include": "#rule-definition"
-    },
-    {
-      "include": "#statement-indented"
     },
     {
       "include": "#comment"
@@ -22,7 +19,7 @@
         "3": {
           "patterns": [
             {
-              "match": "(/([^/\\\\]|\\\\.)*/)",
+              "match": "(/.*/)",
               "name": "string.regexp"
             },
             {
@@ -32,6 +29,18 @@
           ]
         }
       }
+    },
+    "body": {
+      "begin": "^-$",
+      "end": "(?=not)possible",
+      "patterns": [
+        {
+          "include": "#rule-definition"
+        },
+        {
+          "include": "#statement-indented"
+        }
+      ]
     },
     "capture": {
       "match": "(\\<[a-z0-9]+\\>)",
