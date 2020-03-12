@@ -41,28 +41,6 @@
         }
       }
     },
-    "settings": {
-      "begin": "^settings\\(\\):",
-      "end": "^(?=\\S)",
-      "name": "entity.name.section.talon",
-      "patterns": [
-        {
-          "include": "#comment"
-        },
-        {
-          "match": "^\\s+(.*)$",
-          "captures": {
-            "1": {
-              "patterns": [
-                {
-                  "include": "#assignment"
-                }
-              ]
-            }
-          }
-        }
-      ]
-    },
     "body": {
       "begin": "^-$",
       "end": "(?=not)possible",
@@ -190,6 +168,10 @@
         "1": {
           "name": "entity.name.section.talon",
           "patterns": [
+            {
+              "match": "settings\\(\\)",
+              "name": "entity.name.function.talon"
+            },
             {
               "include": "#action-key"
             },
