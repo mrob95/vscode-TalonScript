@@ -2,82 +2,108 @@
 name: TalonScript
 patterns:
   - include: "#body"
-  - include: "#context"
   - include: "#comment"
+  - include: "#context"
+  - include: "#settings"
 repository:
   context:
     match: "(.*): (.*)"
     captures:
       "1":
-        name: entity.name.tag
+        name: entity.name.tag.talon
         patterns:
           - match: (and |or )
-            name: keyword.operator
+            name: keyword.operator.talon
       "2":
         patterns:
           - match: (/.*/)
-            name: string.regexp
+            name: string.regexp.talon
           - match: .*
-            name: entity.name.type
+            name: entity.name.type.talon
+  settings:
+    begin: "^settings\\(\\):"
+    end: ^(?=\S)
+    name: entity.name.section.talon
+    patterns:
+      - include: "#comment"
+      - match: ^\s+(.*)$
+        captures:
+          "1":
+            patterns:
+            - include: "#assignment"
   body:
     begin: ^-$
     end: (?=not)possible
     patterns:
+      - include: "#comment"
       - include: "#rule-definition"
       - include: "#statement-indented"
   capture:
-    match: (\<[a-zA-Z0-9.]+\>)
-    name: variable.parameter
+    match: (\<[a-zA-Z0-9._]+\>)
+    name: variable.parameter.talon
   list:
-    match: ({[a-zA-Z0-9.]+?})
-    name: string.interpolated
+    match: ({[a-zA-Z0-9._]+?})
+    name: string.interpolated.talon
   comment:
-    match: ^(#.*)$
-    name: comment.line.number-sign
+    match: ^(\s*#.*)$
+    name: comment.line.number-sign.talon
+  fstring:
+    match: ({[a-z0-9]+})
+    name: constant.character.format.placeholder.talon
+  qstring:
+    patterns:
+      - include: "#qstring-double"
+      - include: "#qstring-single"
   qstring-double:
     match: (".+?")
-    name: string.quoted.double
+    name: string.quoted.double.talon
     captures:
       "1":
         patterns:
-          - match: ({[a-z0-9]+})
-            name: constant.character.format.placeholder.other
+          - include: "#fstring"
+  qstring-single:
+    match: ('.+?')
+    name: string.quoted.single.talon
+    captures:
+      "1":
+        patterns:
+          - include: "#fstring"
   action-key:
     match: key\((.*)\)
-    name: entity.name.function
+    name: entity.name.function.talon
     captures:
       "1":
-        name: variable.parameter
+        name: variable.parameter.talon
         patterns:
-          - include: "#qstring-double"
+          - include: "#qstring"
           - include: "#key-prefixes"
           - include: "#key-mods"
   key-prefixes:
     match: (ctrl-|shift-|cmd-|alt-|win-|super-)
-    name: keyword.control
+    name: keyword.control.talon
   key-mods:
     match: (:up|:down|:\d+)
-    name: keyword.operator
+    name: keyword.operator.talon
   action:
     match: "[a-zA-Z0-9._]+\\((.*)\\)"
-    name: entity.name.function
+    name: entity.name.function.talon
     captures:
       "1":
-        name: variable.parameter
+        name: variable.parameter.talon
         patterns:
-          - include: "#qstring-double"
-          - include: "#digits"
+          - include: "#qstring"
+          - include: "#number"
   action-action:
     match: action\((.*)\)
-    name: entity.name.function
+    name: entity.name.function.talon
     captures:
       "1":
-        name: variable.parameter
+        name: variable.parameter.talon
   rule-definition:
     match: ^(.*):\s+?(.*)?$
     captures:
       "1":
-        name: entity.name.section
+        name: entity.name.section.talon
         patterns:
           - include: "#action-key"
           - include: "#action-action"
@@ -88,20 +114,23 @@ repository:
           - include: "#statement"
   operators:
     match: \s?(\+|-|\*|/|or)\s?
-    name: keyword.operator
-  digits:
-    match: \d+
-    name: constant.numeric
+    name: keyword.operator.talon
+  number:
+    match: \d+(\.\d+)?
+    name: constant.numeric.talon
   assignment:
-    match: (\S*)\s?=\s?(.*)
+    match: (\S*)(\s?=\s?)(.*)
     captures:
       "1":
-        name: variable.other
+        name: variable.other.talon
       "2":
-        name: variable.other
+        name: keyword.operator.talon
+      "3":
+        name: variable.other.talon
         patterns:
           - include: "#operators"
-          - include: "#digits"
+          - include: "#number"
+          - include: "#qstring"
   statement-indented:
     match: ^\s+(.*)$
     captures:
@@ -113,5 +142,5 @@ repository:
     patterns:
       - include: "#action-key"
       - include: "#action"
-      - include: "#qstring-double"
+      - include: "#qstring"
 scopeName: source.talon
