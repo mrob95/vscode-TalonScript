@@ -1,123 +1,123 @@
 {
-	"name": "TalonScript",
-	"patterns": [
-		{
-			"include": "#context"
-		},
-		{
-			"include": "#rule-definition"
-		},
-		{
-			"include": "#statement-indented"
-		},
-		{
-			"include": "#comment"
-		}
-	],
-	"repository": {
-		"context": {
-			"match": "(and |or )?(app|title|os): (.*)",
-			"name": "entity.name.tag",
-			"captures": {
-				"3": {
-					"patterns": [
-						{
-							"match": "(/([^/\\\\]|\\\\.)*/)",
-							"name": "string.regexp"
-						},
-						{
-							"match": ".*",
-							"name": "entity.name.type"
-						}
-					]
-				}
-			}
-		},
-		"capture": {
-			"match": "(\\<[a-z0-9]+\\>)",
-			"name": "variable.parameter"
-		},
-		"list": {
-			"match": "({[a-z0-9]+?})",
-			"name": "string.interpolated"
-		},
-		"comment": {
-			"match": "^(#.*)$",
-			"name": "comment.line.number-sign"
-		},
-		"qstring-double": {
-			"match": "(\".+?\")",
-			"name": "string.quoted.double",
-			"captures": {
-				"1": {
-					"patterns": [
-						{
-							"match": "({[a-z0-9]+})",
-							"name": "constant.character.format.placeholder.other"
-						}
-					]
-				}
-			}
-		},
-		"action": {
-			"match": "[a-zA-Z0-9._]+\\((.*)\\)",
-			"name": "entity.name.function",
-			"captures": {
-				"1": {
-					"name": "variable.parameter",
-					"patterns": [
-						{
-							"include": "#qstring-double"
-						}
-					]
-				}
-			}
-		},
-		"rule-definition": {
-			"match": "^\\S(.*):\\s+?(.*)?$",
-			"name": "entity.name.section",
-			"captures": {
-				"1": {
-					"patterns": [
-						{
-							"include": "#capture"
-						},
-						{
-							"include": "#list"
-						}
-					]
-				},
-				"2": {
-					"patterns": [
-						{
-							"include": "#statement"
-						}
-					]
-				}
-			}
-		},
-		"statement-indented": {
-			"match": "^\\s+(.*)$",
-			"captures": {
-				"1": {
-					"patterns": [
-						{
-							"include": "#statement"
-						}
-					]
-				}
-			}
-		},
-		"statement": {
-			"patterns": [
-				{
-					"include": "#action"
-				},
-				{
-					"include": "#qstring-double"
-				}
-			]
-		}
-	},
-	"scopeName": "source.talon"
+  "name": "TalonScript",
+  "patterns": [
+    {
+      "include": "#context"
+    },
+    {
+      "include": "#rule-definition"
+    },
+    {
+      "include": "#statement-indented"
+    },
+    {
+      "include": "#comment"
+    }
+  ],
+  "repository": {
+    "context": {
+      "match": "(and |or )?(app|title|os): (.*)",
+      "name": "entity.name.tag",
+      "captures": {
+        "3": {
+          "patterns": [
+            {
+              "match": "(/([^/\\\\]|\\\\.)*/)",
+              "name": "string.regexp"
+            },
+            {
+              "match": ".*",
+              "name": "entity.name.type"
+            }
+          ]
+        }
+      }
+    },
+    "capture": {
+      "match": "(\\<[a-z0-9]+\\>)",
+      "name": "variable.parameter"
+    },
+    "list": {
+      "match": "({[a-z0-9]+?})",
+      "name": "string.interpolated"
+    },
+    "comment": {
+      "match": "^(#.*)$",
+      "name": "comment.line.number-sign"
+    },
+    "qstring-double": {
+      "match": "(\".+?\")",
+      "name": "string.quoted.double",
+      "captures": {
+        "1": {
+          "patterns": [
+            {
+              "match": "({[a-z0-9]+})",
+              "name": "constant.character.format.placeholder.other"
+            }
+          ]
+        }
+      }
+    },
+    "action": {
+      "match": "[a-zA-Z0-9._]+\\((.*)\\)",
+      "name": "entity.name.function",
+      "captures": {
+        "1": {
+          "name": "variable.parameter",
+          "patterns": [
+            {
+              "include": "#qstring-double"
+            }
+          ]
+        }
+      }
+    },
+    "rule-definition": {
+      "match": "^\\S(.*):\\s+?(.*)?$",
+      "name": "entity.name.section",
+      "captures": {
+        "1": {
+          "patterns": [
+            {
+              "include": "#capture"
+            },
+            {
+              "include": "#list"
+            }
+          ]
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#statement"
+            }
+          ]
+        }
+      }
+    },
+    "statement-indented": {
+      "match": "^\\s+(.*)$",
+      "captures": {
+        "1": {
+          "patterns": [
+            {
+              "include": "#statement"
+            }
+          ]
+        }
+      }
+    },
+    "statement": {
+      "patterns": [
+        {
+          "include": "#action"
+        },
+        {
+          "include": "#qstring-double"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.talon"
 }
