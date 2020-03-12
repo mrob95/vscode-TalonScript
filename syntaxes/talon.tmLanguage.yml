@@ -6,10 +6,14 @@ patterns:
   - include: "#comment"
 repository:
   context:
-    match: "(and |or )?(app|title|os): (.*)"
-    name: entity.name.tag
+    match: "(.*): (.*)"
     captures:
-      "3":
+      "1":
+        name: entity.name.tag
+        patterns:
+          - match: (and |or )
+            name: keyword.operator
+      "2":
         patterns:
           - match: (/.*/)
             name: string.regexp
@@ -22,10 +26,10 @@ repository:
       - include: "#rule-definition"
       - include: "#statement-indented"
   capture:
-    match: (\<[a-z0-9]+\>)
+    match: (\<[a-zA-Z0-9.]+\>)
     name: variable.parameter
   list:
-    match: ({[a-z0-9]+?})
+    match: ({[a-zA-Z0-9.]+?})
     name: string.interpolated
   comment:
     match: ^(#.*)$
@@ -38,6 +42,22 @@ repository:
         patterns:
           - match: ({[a-z0-9]+})
             name: constant.character.format.placeholder.other
+  action-key:
+    match: key\((.*)\)
+    name: entity.name.function
+    captures:
+      "1":
+        name: variable.parameter
+        patterns:
+          - include: "#qstring-double"
+          - include: "#key-prefixes"
+          - include: "#key-mods"
+  key-prefixes:
+    match: (ctrl-|shift-|cmd-|alt-|win-|super-)
+    name: keyword.control
+  key-mods:
+    match: (:up|:down|:\d+)
+    name: keyword.operator
   action:
     match: "[a-zA-Z0-9._]+\\((.*)\\)"
     name: entity.name.function
@@ -46,25 +66,52 @@ repository:
         name: variable.parameter
         patterns:
           - include: "#qstring-double"
-  rule-definition:
-    match: "^\\S(.*):\\s+?(.*)?$"
-    name: entity.name.section
+          - include: "#digits"
+  action-action:
+    match: action\((.*)\)
+    name: entity.name.function
     captures:
       "1":
+        name: variable.parameter
+  rule-definition:
+    match: ^(.*):\s+?(.*)?$
+    captures:
+      "1":
+        name: entity.name.section
         patterns:
+          - include: "#action-key"
+          - include: "#action-action"
           - include: "#capture"
           - include: "#list"
       "2":
         patterns:
           - include: "#statement"
+  operators:
+    match: \s?(\+|-|\*|/|or)\s?
+    name: keyword.operator
+  digits:
+    match: \d+
+    name: constant.numeric
+  assignment:
+    match: (\S*)\s?=\s?(.*)
+    captures:
+      "1":
+        name: variable.other
+      "2":
+        name: variable.other
+        patterns:
+          - include: "#operators"
+          - include: "#digits"
   statement-indented:
     match: ^\s+(.*)$
     captures:
       "1":
         patterns:
+          - include: "#assignment"
           - include: "#statement"
   statement:
     patterns:
+      - include: "#action-key"
       - include: "#action"
       - include: "#qstring-double"
 scopeName: source.talon
