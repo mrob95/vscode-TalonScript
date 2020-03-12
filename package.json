@@ -1,5 +1,13 @@
 {
     "name": "vscode-talonscript",
+    "publisher": "mrob95",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mrob95/vscode-TalonScript"
+    },
+    "bugs": {
+        "url": "https://github.com/mrob95/vscode-TalonScript/issues"
+    },
     "displayName": "TalonScript",
     "description": "Syntax highlighting for TalonScript files.",
     "version": "0.0.1",
