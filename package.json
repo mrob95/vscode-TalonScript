@@ -12,7 +12,7 @@
     "description": "Syntax highlighting for TalonScript files.",
     "version": "0.0.3",
     "engines": {
-        "vscode": "^1.43.0"
+        "vscode": "^1.2.0"
     },
     "categories": [
         "Programming Languages"
