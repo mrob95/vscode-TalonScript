@@ -28,14 +28,14 @@
           ]
         },
         "2": {
+          "name": "entity.name.type.talon",
           "patterns": [
+            {
+              "include": "#comment"
+            },
             {
               "match": "(/.*/)",
               "name": "string.regexp.talon"
-            },
-            {
-              "match": ".*",
-              "name": "entity.name.type.talon"
             }
           ]
         }
@@ -65,11 +65,11 @@
       "name": "string.interpolated.talon"
     },
     "comment": {
-      "match": "^(\\s*#.*)$",
+      "match": "(\\s*#.*)$",
       "name": "comment.line.number-sign.talon"
     },
     "fstring": {
-      "match": "({[a-z0-9]+})",
+      "match": "({.+?})",
       "name": "constant.character.format.placeholder.talon"
     },
     "qstring": {
@@ -89,6 +89,10 @@
         "1": {
           "patterns": [
             {
+              "match": "{{|}}",
+              "name": "string.quoted.double.talon"
+            },
+            {
               "include": "#fstring"
             }
           ]
@@ -101,6 +105,10 @@
       "captures": {
         "1": {
           "patterns": [
+            {
+              "match": "{{|}}",
+              "name": "string.quoted.single.talon"
+            },
             {
               "include": "#fstring"
             }
@@ -163,7 +171,7 @@
       }
     },
     "rule-definition": {
-      "match": "^(.*):\\s+?(.*)?$",
+      "match": "^([^\\s].*):\\s*(.*)$",
       "captures": {
         "1": {
           "name": "entity.name.section.talon",
@@ -216,6 +224,9 @@
           "name": "variable.other.talon",
           "patterns": [
             {
+              "include": "#comment"
+            },
+            {
               "include": "#operators"
             },
             {
@@ -234,9 +245,6 @@
         "1": {
           "patterns": [
             {
-              "include": "#assignment"
-            },
-            {
               "include": "#statement"
             }
           ]
@@ -246,6 +254,9 @@
     "statement": {
       "patterns": [
         {
+          "include": "#comment"
+        },
+        {
           "include": "#action-key"
         },
         {
@@ -253,6 +264,9 @@
         },
         {
           "include": "#qstring"
+        },
+        {
+          "include": "#assignment"
         }
       ]
     }

@@ -15,11 +15,11 @@ repository:
           - match: (and |or )
             name: keyword.operator.talon
       "2":
+        name: entity.name.type.talon
         patterns:
+          - include: "#comment"
           - match: (/.*/)
             name: string.regexp.talon
-          - match: .*
-            name: entity.name.type.talon
   body:
     begin: ^-$
     end: (?=not)possible
@@ -34,10 +34,10 @@ repository:
     match: ({[a-zA-Z0-9._]+?})
     name: string.interpolated.talon
   comment:
-    match: ^(\s*#.*)$
+    match: (\s*#.*)$
     name: comment.line.number-sign.talon
   fstring:
-    match: ({[a-z0-9]+})
+    match: ({.+?})
     name: constant.character.format.placeholder.talon
   qstring:
     patterns:
@@ -49,6 +49,8 @@ repository:
     captures:
       "1":
         patterns:
+          - match: "{{|}}"
+            name: string.quoted.double.talon
           - include: "#fstring"
   qstring-single:
     match: ('.+?')
@@ -56,6 +58,8 @@ repository:
     captures:
       "1":
         patterns:
+          - match: "{{|}}"
+            name: string.quoted.single.talon
           - include: "#fstring"
   action-key:
     match: key\((.*)\)
@@ -89,7 +93,7 @@ repository:
       "1":
         name: variable.parameter.talon
   rule-definition:
-    match: ^(.*):\s+?(.*)?$
+    match: ^([^\s].*):\s*(.*)$
     captures:
       "1":
         name: entity.name.section.talon
@@ -119,6 +123,7 @@ repository:
       "3":
         name: variable.other.talon
         patterns:
+          - include: "#comment"
           - include: "#operators"
           - include: "#number"
           - include: "#qstring"
@@ -127,11 +132,12 @@ repository:
     captures:
       "1":
         patterns:
-          - include: "#assignment"
           - include: "#statement"
   statement:
     patterns:
+      - include: "#comment"
       - include: "#action-key"
       - include: "#action"
       - include: "#qstring"
+      - include: "#assignment"
 scopeName: source.talon
