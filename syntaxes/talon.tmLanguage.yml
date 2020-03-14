@@ -1,11 +1,17 @@
 ---
 name: TalonScript
 patterns:
-  - include: "#body"
+  - include: "#body-header"
+  - include: "#header"
+  - include: "#body-noheader"
   - include: "#comment"
-  - include: "#context"
   - include: "#settings"
 repository:
+  header:
+    begin: (?=^app:|title:)
+    end: (?=^-$)
+    patterns:
+      - include: "#context"
   context:
     match: "(.*): (.*)"
     captures:
@@ -20,9 +26,12 @@ repository:
           - include: "#comment"
           - match: (/.*/)
             name: string.regexp.talon
-  body:
+  body-header:
     begin: ^-$
     end: (?=not)possible
+    patterns:
+      - include: "#body-noheader"
+  body-noheader:
     patterns:
       - include: "#comment"
       - include: "#rule-definition"
