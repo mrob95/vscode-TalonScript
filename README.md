@@ -1,3 +1,5 @@
-# TalonScript VS code syntax highlighting extension
+# TalonFile VS code syntax highlighting extension
 
-Syntax highlighting for `.talon` files.
+Syntax highlighting for `.talon` voice coding command grammar files.
+
+![Example](images/example.png)

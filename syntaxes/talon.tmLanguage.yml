@@ -53,7 +53,7 @@ repository:
       - include: "#qstring-double"
       - include: "#qstring-single"
   qstring-double:
-    match: (".+?")
+    match: (".+?(?<!\\)")
     name: string.quoted.double.talon
     captures:
       "1":
@@ -62,7 +62,7 @@ repository:
             name: string.quoted.double.talon
           - include: "#fstring"
   qstring-single:
-    match: ('.+?')
+    match: ('.+?(?<!\\)')
     name: string.quoted.single.talon
     captures:
       "1":
