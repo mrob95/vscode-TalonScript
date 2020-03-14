@@ -10,7 +10,7 @@
     },
     "displayName": "TalonScript highlighting",
     "description": "Syntax highlighting for TalonScript files.",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "engines": {
         "vscode": "^1.2.0"
     },
