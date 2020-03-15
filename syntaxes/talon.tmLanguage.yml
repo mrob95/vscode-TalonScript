@@ -81,10 +81,19 @@ repository:
           - include: "#key-prefixes"
           - include: "#key-mods"
   key-prefixes:
-    match: (ctrl-|shift-|cmd-|alt-|win-|super-)
-    name: keyword.control.talon
+    match: (ctrl|shift|cmd|alt|win|super)(-)
+    captures:
+      "1":
+        name: keyword.control.talon
+      "2":
+        name: keyword.operator.talon
   key-mods:
-    match: (:up|:down|:\d+)
+    match: (:)(up|down|\d+)
+    captures:
+      "1":
+        name: keyword.operator.talon
+      "2":
+        name: keyword.control.talon
     name: keyword.operator.talon
   action:
     match: "[a-zA-Z0-9._]+\\((.*)\\)"
