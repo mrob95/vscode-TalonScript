@@ -136,10 +136,13 @@
       }
     },
     "action-key": {
-      "match": "key\\((.*)\\)",
+      "match": "key(\\()(.*)(\\))",
       "name": "entity.name.function.talon",
       "captures": {
         "1": {
+          "name": "keyword.operator.talon"
+        },
+        "2": {
           "name": "variable.parameter.talon",
           "patterns": [
             {
@@ -152,6 +155,9 @@
               "include": "#key-mods"
             }
           ]
+        },
+        "3": {
+          "name": "keyword.operator.talon"
         }
       }
     },
@@ -179,11 +185,13 @@
       "name": "keyword.operator.talon"
     },
     "action": {
-      "match": "[a-zA-Z0-9._]+\\((.*)\\)",
+      "match": "[a-zA-Z0-9._]+(\\()(.*)(\\))",
       "name": "entity.name.function.talon",
       "captures": {
         "1": {
-          "name": "variable.parameter.talon",
+          "name": "keyword.operator.talon"
+        },
+        "2": {
           "patterns": [
             {
               "include": "#qstring"
@@ -191,16 +199,26 @@
             {
               "include": "#number"
             }
-          ]
+          ],
+          "name": "variable.parameter.talon"
+        },
+        "3": {
+          "name": "keyword.operator.talon"
         }
       }
     },
     "action-action": {
-      "match": "action\\((.*)\\)",
+      "match": "action(\\()(.*)(\\))",
       "name": "entity.name.function.talon",
       "captures": {
         "1": {
+          "name": "keyword.operator.talon"
+        },
+        "2": {
           "name": "variable.parameter.talon"
+        },
+        "3": {
+          "name": "keyword.operator.talon"
         }
       }
     },
@@ -211,8 +229,13 @@
           "name": "entity.name.section.talon",
           "patterns": [
             {
-              "match": "settings\\(\\)",
-              "name": "entity.name.function.talon"
+              "match": "settings(\\(\\))",
+              "name": "entity.name.function.talon",
+              "captures": {
+                "1": {
+                  "name": "keyword.operator.talon"
+                }
+              }
             },
             {
               "include": "#action-key"
