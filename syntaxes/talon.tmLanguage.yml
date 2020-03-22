@@ -144,7 +144,7 @@ repository:
     match: \s?(\+|-|\*|/|or)\s?
     name: keyword.operator.talon
   number:
-    match: \d+(\.\d+)?
+    match: (?<=^|\s)\d+(\.\d+)?(?=$|\s)
     name: constant.numeric.talon
   assignment:
     match: (\S*)(\s?=\s?)(.*)

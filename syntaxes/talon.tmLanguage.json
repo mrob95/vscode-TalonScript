@@ -265,7 +265,7 @@
       "name": "keyword.operator.talon"
     },
     "number": {
-      "match": "\\d+(\\.\\d+)?",
+      "match": "(?<=^|\\s)\\d+(\\.\\d+)?(?=$|\\s)",
       "name": "constant.numeric.talon"
     },
     "assignment": {
