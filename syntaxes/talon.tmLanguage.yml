@@ -8,7 +8,7 @@ patterns:
   - include: "#settings"
 repository:
   header:
-    begin: (?=^app:|title:)
+    begin: (?=^app:|title:|os:)
     end: (?=^-$)
     patterns:
       - include: "#context"

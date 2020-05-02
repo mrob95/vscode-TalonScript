@@ -19,7 +19,7 @@
   ],
   "repository": {
     "header": {
-      "begin": "(?=^app:|title:)",
+      "begin": "(?=^app:|title:|os:)",
       "end": "(?=^-$)",
       "patterns": [
         {
