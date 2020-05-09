@@ -11,6 +11,7 @@ repository:
     begin: (?=^app:|title:|os:)
     end: (?=^-$)
     patterns:
+      - include: "#comment"
       - include: "#context"
   context:
     match: "(.*): (.*)"

@@ -23,6 +23,9 @@
       "end": "(?=^-$)",
       "patterns": [
         {
+          "include": "#comment"
+        },
+        {
           "include": "#context"
         }
       ]
