@@ -105,10 +105,13 @@
       ]
     },
     "qstring-double": {
-      "match": "(\".+?(?<!\\\\)\")",
+      "match": "(\")(.*?(?<!\\\\))(\")",
       "name": "string.quoted.double.talon",
       "captures": {
         "1": {
+          "name": "punctuation.definition.string.begin.talon"
+        },
+        "2": {
           "patterns": [
             {
               "match": "{{|}}",
@@ -116,16 +119,28 @@
             },
             {
               "include": "#fstring"
+            },
+            {
+              "include": "#key-mods"
+            },
+            {
+              "include": "#key-prefixes"
             }
           ]
+        },
+        "3": {
+          "name": "punctuation.definition.string.end.talon"
         }
       }
     },
     "qstring-single": {
-      "match": "('.+?(?<!\\\\)')",
+      "match": "(')(.*?(?<!\\\\))(')",
       "name": "string.quoted.single.talon",
       "captures": {
         "1": {
+          "name": "punctuation.definition.string.begin.talon"
+        },
+        "2": {
           "patterns": [
             {
               "match": "{{|}}",
@@ -133,8 +148,17 @@
             },
             {
               "include": "#fstring"
+            },
+            {
+              "include": "#key-mods"
+            },
+            {
+              "include": "#key-prefixes"
             }
           ]
+        },
+        "3": {
+          "name": "punctuation.definition.string.end.talon"
         }
       }
     },
@@ -143,7 +167,7 @@
       "name": "entity.name.function.talon",
       "captures": {
         "1": {
-          "name": "keyword.operator.talon"
+          "name": "punctuation.definition.parameters.begin.talon"
         },
         "2": {
           "name": "variable.parameter.talon",
@@ -160,7 +184,7 @@
           ]
         },
         "3": {
-          "name": "keyword.operator.talon"
+          "name": "punctuation.definition.parameters.key.talon"
         }
       }
     },
@@ -187,26 +211,44 @@
       },
       "name": "keyword.operator.talon"
     },
+    "argsep": {
+      "match": ",",
+      "name": "punctuation.separator.talon"
+    },
     "action": {
-      "match": "[a-zA-Z0-9._]+(\\()(.*)(\\))",
-      "name": "entity.name.function.talon",
+      "match": "([a-zA-Z0-9._]+)(\\()(.*?)(\\))",
       "captures": {
         "1": {
-          "name": "keyword.operator.talon"
+          "name": "entity.name.function.talon",
+          "patterns": [
+            {
+              "match": "\\.",
+              "name": "punctuation.separator.talon"
+            }
+          ]
         },
         "2": {
+          "name": "punctuation.definition.parameters.begin.talon"
+        },
+        "3": {
           "patterns": [
             {
               "include": "#qstring"
             },
             {
+              "include": "#argsep"
+            },
+            {
               "include": "#number"
+            },
+            {
+              "include": "#operators"
             }
           ],
           "name": "variable.parameter.talon"
         },
-        "3": {
-          "name": "keyword.operator.talon"
+        "4": {
+          "name": "punctuation.definition.parameters.end.talon"
         }
       }
     },
@@ -215,28 +257,28 @@
       "name": "entity.name.function.talon",
       "captures": {
         "1": {
-          "name": "keyword.operator.talon"
+          "name": "punctuation.definition.parameters.begin.talon"
         },
         "2": {
           "name": "variable.parameter.talon"
         },
         "3": {
-          "name": "keyword.operator.talon"
+          "name": "punctuation.definition.parameters.end.talon"
         }
       }
     },
     "rule-definition": {
-      "match": "^([^\\s].*?):\\s*(.*)$",
+      "match": "^([^\\s].*):\\s*(.*)$",
       "captures": {
         "1": {
-          "name": "entity.name.section.talon",
+          "name": "entity.name.tag.talon",
           "patterns": [
             {
               "match": "settings(\\(\\))",
               "name": "entity.name.function.talon",
               "captures": {
                 "1": {
-                  "name": "keyword.operator.talon"
+                  "name": "punctuation.definition.parameters.begin.talon"
                 }
               }
             },
@@ -264,11 +306,11 @@
       }
     },
     "operators": {
-      "match": "\\s?(\\+|-|\\*|/|or)\\s?",
+      "match": "\\s(\\+|-|\\*|/|or)\\s",
       "name": "keyword.operator.talon"
     },
     "number": {
-      "match": "(?<=^|\\s)\\d+(\\.\\d+)?(?=$|\\s)",
+      "match": "(?<=\\b)\\d+(\\.\\d+)?",
       "name": "constant.numeric.talon"
     },
     "assignment": {
@@ -327,6 +369,9 @@
         },
         {
           "include": "#assignment"
+        },
+        {
+          "include": "#operators"
         }
       ]
     }
