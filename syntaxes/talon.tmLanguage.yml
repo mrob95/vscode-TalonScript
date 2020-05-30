@@ -34,6 +34,7 @@ repository:
       - include: "#body-noheader"
   body-noheader:
     patterns:
+      - include: "#qstring-long"
       - include: "#comment"
       - include: "#rule-definition"
       - include: "#statement-indented"
@@ -61,11 +62,7 @@ repository:
         name: punctuation.definition.string.begin.talon
       "2":
         patterns:
-          - match: "{{|}}"
-            name: string.quoted.double.talon
-          - include: "#fstring"
-          - include: "#key-mods"
-          - include: "#key-prefixes"
+          - include: "#string-body"
       "3":
         name: punctuation.definition.string.end.talon
   qstring-single:
@@ -76,13 +73,28 @@ repository:
         name: punctuation.definition.string.begin.talon
       "2":
         patterns:
-          - match: "{{|}}"
-            name: string.quoted.single.talon
-          - include: "#fstring"
-          - include: "#key-mods"
-          - include: "#key-prefixes"
+          - include: "#string-body"
       "3":
         name: punctuation.definition.string.end.talon
+  qstring-long:
+    begin: \s*("""|''')
+    end: (\1)
+    name: string.quoted.double.talon
+    beginCaptures:
+      "1":
+        name: punctuation.definition.string.begin.talon
+    endCaptures:
+      "1":
+        name: punctuation.definition.string.end.talon
+    patterns:
+      - include: "#string-body"
+  string-body:
+    patterns:
+      - match: "{{|}}"
+        name: string.quoted.double.talon
+      - include: "#fstring"
+      - include: "#key-mods"
+      - include: "#key-prefixes"
   action-key:
     match: key(\()(.*)(\))
     name: entity.name.function.talon
