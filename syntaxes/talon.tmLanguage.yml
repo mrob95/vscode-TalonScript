@@ -38,6 +38,7 @@ repository:
       - include: "#comment"
       - include: "#rule-definition"
       - include: "#statement-indented"
+  # ------------------------------------------------
   capture:
     match: (\<[a-zA-Z0-9._]+\>)
     name: variable.parameter.talon
@@ -47,6 +48,14 @@ repository:
   comment:
     match: (\s*#.*)$
     name: comment.line.number-sign.talon
+  operator:
+    match: \s(\+|-|\*|/|or)\s
+    name: keyword.operator.talon
+  number:
+    match: (?<=\b)\d+(\.\d+)?
+    # (?=$|\s)
+    name: constant.numeric.talon
+  # STRINGS ------------------------------------------------
   fstring:
     match: ({.+?})
     name: constant.character.format.placeholder.talon
@@ -54,6 +63,13 @@ repository:
     patterns:
       - include: "#qstring-double"
       - include: "#qstring-single"
+  string-body:
+    patterns:
+      - match: "{{|}}"
+        name: string.quoted.double.talon
+      - include: "#fstring"
+      - include: "#key-mods"
+      - include: "#key-prefixes"
   qstring-double:
     match: (")(.*?(?<!\\))(")
     name: string.quoted.double.talon
@@ -88,13 +104,7 @@ repository:
         name: punctuation.definition.string.end.talon
     patterns:
       - include: "#string-body"
-  string-body:
-    patterns:
-      - match: "{{|}}"
-        name: string.quoted.double.talon
-      - include: "#fstring"
-      - include: "#key-mods"
-      - include: "#key-prefixes"
+  # KEY ------------------------------------------------
   action-key:
     match: key(\()(.*)(\))
     name: entity.name.function.talon
@@ -124,13 +134,14 @@ repository:
       "2":
         name: keyword.control.talon
     name: keyword.operator.talon
+  # ACTION ------------------------------------------------
   argsep:
     match: ","
     name: punctuation.separator.talon
   action:
-    match: "([a-zA-Z0-9._]+)(\\()(.*?)(\\))"
-    # name: support.function.builtin.talon
-    captures:
+    begin: "([a-zA-Z0-9._]+)(\\()"
+    end: (\))
+    beginCaptures:
       "1":
         name: entity.name.function.talon
         patterns:
@@ -138,15 +149,16 @@ repository:
             name: punctuation.separator.talon
       "2":
         name: punctuation.definition.parameters.begin.talon
-      "3":
-        patterns:
-          - include: "#qstring"
-          - include: "#argsep"
-          - include: "#number"
-          - include: "#operators"
-        name: variable.parameter.talon
-      "4":
+    endCaptures:
+      "1":
         name: punctuation.definition.parameters.end.talon
+    patterns:
+      - include: "#action"
+      - include: "#qstring"
+      - include: "#argsep"
+      - include: "#number"
+      - include: "#operator"
+    name: variable.parameter.talon
   action-action:
     match: action(\()(.*)(\))
     name: entity.name.function.talon
@@ -157,6 +169,7 @@ repository:
         name: variable.parameter.talon
       "3":
         name: punctuation.definition.parameters.end.talon
+  # RULE ------------------------------------------------
   rule-definition:
     match: ^([^\s][^"']*):\s*(.*)$
     captures:
@@ -168,6 +181,10 @@ repository:
             captures:
               "1":
                 name: punctuation.definition.parameters.begin.talon
+          - match: ^\^
+            name: string.regexp.talon
+          - match: \$$
+            name: string.regexp.talon
           - include: "#action-key"
           - include: "#action-action"
           - include: "#capture"
@@ -175,13 +192,6 @@ repository:
       "2":
         patterns:
           - include: "#statement"
-  operators:
-    match: \s(\+|-|\*|/|or)\s
-    name: keyword.operator.talon
-  number:
-    match: (?<=\b)\d+(\.\d+)?
-    # (?=$|\s)
-    name: constant.numeric.talon
   assignment:
     match: (\S*)(\s?=\s?)(.*)
     captures:
@@ -193,7 +203,7 @@ repository:
         name: variable.other.talon
         patterns:
           - include: "#comment"
-          - include: "#operators"
+          - include: "#operator"
           - include: "#number"
           - include: "#qstring"
   statement-indented:
@@ -209,5 +219,5 @@ repository:
       - include: "#action"
       - include: "#qstring"
       - include: "#assignment"
-      - include: "#operators"
+      - include: "#operator"
 scopeName: source.talon
