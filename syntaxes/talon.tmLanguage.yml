@@ -25,8 +25,25 @@ repository:
         name: entity.name.type.talon
         patterns:
           - include: "#comment"
-          - match: (/.*/)
-            name: string.regexp.talon
+          - include: "#regexp"
+  regexp:
+    begin: (/)
+    end: (/)
+    name: string.regexp.talon
+    patterns:
+      - match: \.
+        name: support.other.match.any.regexp
+        # name: constant.other.set.regexp
+      - match: \$
+        name: support.other.match.end.regexp
+      - match: \^
+        name: support.other.match.begin.regexp
+      - match: \\\.|\\\*|\\\^|\\\$|\\\+|\\\?
+        name: constant.character.escape.talon
+      - match: \[(\\\]|[^\]])*\]
+        name: constant.other.set.regexp
+      - match: \*|\+|\?
+        name: keyword.operator.quantifier.regexp
   body-header:
     begin: ^-$
     end: (?=not)possible
