@@ -334,7 +334,7 @@
       }
     },
     "rule-definition": {
-      "match": "^([^\\s][^\"']*):\\s*(.*)$",
+      "match": "^([^\\s][^\"']*?):\\s*(.*)$",
       "captures": {
         "1": {
           "name": "entity.name.tag.talon",
