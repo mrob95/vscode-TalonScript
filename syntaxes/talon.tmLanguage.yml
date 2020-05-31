@@ -67,6 +67,8 @@ repository:
     patterns:
       - match: "{{|}}"
         name: string.quoted.double.talon
+      - match: \\\\|\\n|\\t|\\r|\\"|\\'
+        name: constant.character.escape.python
       - include: "#fstring"
       - include: "#key-mods"
       - include: "#key-prefixes"

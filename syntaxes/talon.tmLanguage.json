@@ -122,6 +122,10 @@
           "name": "string.quoted.double.talon"
         },
         {
+          "match": "\\\\\\\\|\\\\n|\\\\t|\\\\r|\\\\\"|\\\\'",
+          "name": "constant.character.escape.python"
+        },
+        {
           "include": "#fstring"
         },
         {
