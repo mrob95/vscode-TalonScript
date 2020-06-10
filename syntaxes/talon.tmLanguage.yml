@@ -54,7 +54,7 @@ repository:
       - include: "#qstring-long"
       - include: "#comment"
       - include: "#rule-definition"
-      - include: "#statement-indented"
+      # - include: "#statement-indented"
   # ------------------------------------------------
   capture:
     match: (\<[a-zA-Z0-9._]+\>)
@@ -175,9 +175,33 @@ repository:
       "3":
         name: punctuation.definition.parameters.end.talon
   # RULE ------------------------------------------------
+  # rule-definition:
+  #   match: ^([^\s][^"']*?):\s*(.*)$
+  #   captures:
+  #     "1":
+  #       name: entity.name.tag.talon
+  #       patterns:
+  #         - match: settings(\(\))
+  #           name: entity.name.function.talon
+  #           captures:
+  #             "1":
+  #               name: punctuation.definition.parameters.begin.talon
+  #         - match: ^\^
+  #           name: string.regexp.talon
+  #         - match: \$$
+  #           name: string.regexp.talon
+  #         - include: "#action-key"
+  #         - include: "#action-action"
+  #         - include: "#capture"
+  #         - include: "#list"
+  #     "2":
+  #       patterns:
+  #         - include: "#statement"
   rule-definition:
-    match: ^([^\s][^"']*?):\s*(.*)$
-    captures:
+    # match: ^([^\s][^"']*?):\s*(.*)$
+    begin: ^([^\s][^"']*?):
+    end: (?=^[^\s])
+    beginCaptures:
       "1":
         name: entity.name.tag.talon
         patterns:
@@ -194,9 +218,8 @@ repository:
           - include: "#action-action"
           - include: "#capture"
           - include: "#list"
-      "2":
-        patterns:
-          - include: "#statement"
+    patterns:
+      - include: "#statement"
   assignment:
     match: (\S*)(\s?=\s?)(.*)
     captures:
@@ -211,15 +234,16 @@ repository:
           - include: "#operator"
           - include: "#number"
           - include: "#qstring"
-  statement-indented:
-    match: ^\s+(.*)$
-    captures:
-      "1":
-        patterns:
-          - include: "#statement"
+  # statement-indented:
+  #   match: ^\s+(.*)$
+  #   captures:
+  #     "1":
+  #       patterns:
+  #         - include: "#statement"
   statement:
     patterns:
       - include: "#comment"
+      - include: "#qstring-long"
       - include: "#action-key"
       - include: "#action"
       - include: "#qstring"
