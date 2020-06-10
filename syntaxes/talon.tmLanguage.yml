@@ -76,10 +76,6 @@ repository:
   fstring:
     match: ({.+?})
     name: constant.character.format.placeholder.talon
-  qstring:
-    patterns:
-      - include: "#qstring-double"
-      - include: "#qstring-single"
   string-body:
     patterns:
       - match: "{{|}}"
@@ -89,28 +85,18 @@ repository:
       - include: "#fstring"
       - include: "#key-mods"
       - include: "#key-prefixes"
-  qstring-double:
-    match: (")(.*?(?<!\\))(")
+  qstring:
+    begin: ("|')
+    end: (\1)|$
     name: string.quoted.double.talon
-    captures:
+    beginCaptures:
       "1":
         name: punctuation.definition.string.begin.talon
-      "2":
-        patterns:
-          - include: "#string-body"
-      "3":
-        name: punctuation.definition.string.end.talon
-  qstring-single:
-    match: (')(.*?(?<!\\))(')
-    name: string.quoted.single.talon
-    captures:
+    endCaptures:
       "1":
-        name: punctuation.definition.string.begin.talon
-      "2":
-        patterns:
-          - include: "#string-body"
-      "3":
         name: punctuation.definition.string.end.talon
+    patterns:
+      - include: "#string-body"
   qstring-long:
     begin: \s*("""|''')
     end: (\1)

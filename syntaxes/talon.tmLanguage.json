@@ -136,12 +136,22 @@
       "name": "constant.character.format.placeholder.talon"
     },
     "qstring": {
+      "begin": "(\"|')",
+      "end": "(\\1)|$",
+      "name": "string.quoted.double.talon",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.begin.talon"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.talon"
+        }
+      },
       "patterns": [
         {
-          "include": "#qstring-double"
-        },
-        {
-          "include": "#qstring-single"
+          "include": "#string-body"
         }
       ]
     },
@@ -165,44 +175,6 @@
           "include": "#key-prefixes"
         }
       ]
-    },
-    "qstring-double": {
-      "match": "(\")(.*?(?<!\\\\))(\")",
-      "name": "string.quoted.double.talon",
-      "captures": {
-        "1": {
-          "name": "punctuation.definition.string.begin.talon"
-        },
-        "2": {
-          "patterns": [
-            {
-              "include": "#string-body"
-            }
-          ]
-        },
-        "3": {
-          "name": "punctuation.definition.string.end.talon"
-        }
-      }
-    },
-    "qstring-single": {
-      "match": "(')(.*?(?<!\\\\))(')",
-      "name": "string.quoted.single.talon",
-      "captures": {
-        "1": {
-          "name": "punctuation.definition.string.begin.talon"
-        },
-        "2": {
-          "patterns": [
-            {
-              "include": "#string-body"
-            }
-          ]
-        },
-        "3": {
-          "name": "punctuation.definition.string.end.talon"
-        }
-      }
     },
     "qstring-long": {
       "begin": "\\s*(\"\"\"|''')",
