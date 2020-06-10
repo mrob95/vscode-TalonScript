@@ -98,16 +98,10 @@
     "body-noheader": {
       "patterns": [
         {
-          "include": "#qstring-long"
-        },
-        {
           "include": "#comment"
         },
         {
           "include": "#rule-definition"
-        },
-        {
-          "include": "#statement-indented"
         }
       ]
     },
@@ -135,26 +129,6 @@
       "match": "({.+?})",
       "name": "constant.character.format.placeholder.talon"
     },
-    "qstring": {
-      "begin": "(\"|')",
-      "end": "(\\1)|$",
-      "name": "string.quoted.double.talon",
-      "beginCaptures": {
-        "1": {
-          "name": "punctuation.definition.string.begin.talon"
-        }
-      },
-      "endCaptures": {
-        "1": {
-          "name": "punctuation.definition.string.end.talon"
-        }
-      },
-      "patterns": [
-        {
-          "include": "#string-body"
-        }
-      ]
-    },
     "string-body": {
       "patterns": [
         {
@@ -176,8 +150,28 @@
         }
       ]
     },
+    "qstring": {
+      "begin": "(\"|')",
+      "end": "(\\1)|$",
+      "name": "string.quoted.double.talon",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.begin.talon"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.talon"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#string-body"
+        }
+      ]
+    },
     "qstring-long": {
-      "begin": "\\s*(\"\"\"|''')",
+      "begin": "(\"\"\"|''')",
       "end": "(\\1)",
       "name": "string.quoted.double.talon",
       "beginCaptures": {
@@ -276,6 +270,9 @@
           "include": "#action"
         },
         {
+          "include": "#qstring-long"
+        },
+        {
           "include": "#qstring"
         },
         {
@@ -306,8 +303,9 @@
       }
     },
     "rule-definition": {
-      "match": "^([^\\s][^\"']*?):\\s*(.*)$",
-      "captures": {
+      "begin": "^([^\\s][^\"']*?):",
+      "end": "(?=^[^\\s#])",
+      "beginCaptures": {
         "1": {
           "name": "entity.name.tag.talon",
           "patterns": [
@@ -341,15 +339,13 @@
               "include": "#list"
             }
           ]
-        },
-        "2": {
-          "patterns": [
-            {
-              "include": "#statement"
-            }
-          ]
         }
-      }
+      },
+      "patterns": [
+        {
+          "include": "#statement"
+        }
+      ]
     },
     "assignment": {
       "match": "(\\S*)(\\s?=\\s?)(.*)",
@@ -379,22 +375,13 @@
         }
       }
     },
-    "statement-indented": {
-      "match": "^\\s+(.*)$",
-      "captures": {
-        "1": {
-          "patterns": [
-            {
-              "include": "#statement"
-            }
-          ]
-        }
-      }
-    },
     "statement": {
       "patterns": [
         {
           "include": "#comment"
+        },
+        {
+          "include": "#qstring-long"
         },
         {
           "include": "#action-key"
@@ -407,9 +394,6 @@
         },
         {
           "include": "#assignment"
-        },
-        {
-          "include": "#operator"
         }
       ]
     }

@@ -51,10 +51,8 @@ repository:
       - include: "#body-noheader"
   body-noheader:
     patterns:
-      - include: "#qstring-long"
       - include: "#comment"
       - include: "#rule-definition"
-      # - include: "#statement-indented"
   # ------------------------------------------------
   capture:
     match: (\<[a-zA-Z0-9._]+\>)
@@ -98,7 +96,7 @@ repository:
     patterns:
       - include: "#string-body"
   qstring-long:
-    begin: \s*("""|''')
+    begin: ("""|''')
     end: (\1)
     name: string.quoted.double.talon
     beginCaptures:
@@ -159,6 +157,7 @@ repository:
         name: punctuation.definition.parameters.end.talon
     patterns:
       - include: "#action"
+      - include: "#qstring-long"
       - include: "#qstring"
       - include: "#argsep"
       - include: "#number"
@@ -175,32 +174,9 @@ repository:
       "3":
         name: punctuation.definition.parameters.end.talon
   # RULE ------------------------------------------------
-  # rule-definition:
-  #   match: ^([^\s][^"']*?):\s*(.*)$
-  #   captures:
-  #     "1":
-  #       name: entity.name.tag.talon
-  #       patterns:
-  #         - match: settings(\(\))
-  #           name: entity.name.function.talon
-  #           captures:
-  #             "1":
-  #               name: punctuation.definition.parameters.begin.talon
-  #         - match: ^\^
-  #           name: string.regexp.talon
-  #         - match: \$$
-  #           name: string.regexp.talon
-  #         - include: "#action-key"
-  #         - include: "#action-action"
-  #         - include: "#capture"
-  #         - include: "#list"
-  #     "2":
-  #       patterns:
-  #         - include: "#statement"
   rule-definition:
-    # match: ^([^\s][^"']*?):\s*(.*)$
-    begin: ^([^\s][^"']*?):
-    end: (?=^[^\s])
+    begin: "^([^\\s][^\"']*?):"
+    end: (?=^[^\s#])
     beginCaptures:
       "1":
         name: entity.name.tag.talon
@@ -234,12 +210,6 @@ repository:
           - include: "#operator"
           - include: "#number"
           - include: "#qstring"
-  # statement-indented:
-  #   match: ^\s+(.*)$
-  #   captures:
-  #     "1":
-  #       patterns:
-  #         - include: "#statement"
   statement:
     patterns:
       - include: "#comment"
@@ -248,5 +218,5 @@ repository:
       - include: "#action"
       - include: "#qstring"
       - include: "#assignment"
-      - include: "#operator"
+      # - include: "#operator"
 scopeName: source.talon
