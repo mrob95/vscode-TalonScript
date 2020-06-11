@@ -1,5 +1,6 @@
 ---
 name: TalonScript
+scopeName: source.talon
 patterns:
   - include: "#body-header"
   - include: "#header"
@@ -8,7 +9,7 @@ patterns:
   - include: "#settings"
 repository:
   header:
-    begin: (?=^app:|title:|os:)
+    begin: (?=^app:|title:|os:|tag:)
     end: (?=^-$)
     patterns:
       - include: "#comment"
@@ -181,11 +182,7 @@ repository:
       "1":
         name: entity.name.tag.talon
         patterns:
-          - match: settings(\(\))
-            name: entity.name.function.talon
-            captures:
-              "1":
-                name: punctuation.definition.parameters.begin.talon
+          - include: "#rule-specials"
           - match: ^\^
             name: string.regexp.talon
           - match: \$$
@@ -196,6 +193,15 @@ repository:
           - include: "#list"
     patterns:
       - include: "#statement"
+  rule-specials:
+    match: (settings|tag)(\()(\))
+    captures:
+      "1":
+        name: entity.name.function.talon
+      "2":
+        name: punctuation.definition.parameters.begin.talon
+      "3":
+        name: punctuation.definition.parameters.end.talon
   assignment:
     match: (\S*)(\s?=\s?)(.*)
     captures:
@@ -218,5 +224,3 @@ repository:
       - include: "#action"
       - include: "#qstring"
       - include: "#assignment"
-      # - include: "#operator"
-scopeName: source.talon
