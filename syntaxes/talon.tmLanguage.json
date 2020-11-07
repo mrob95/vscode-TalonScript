@@ -126,6 +126,21 @@
       "match": "(?<=\\b)\\d+(\\.\\d+)?",
       "name": "constant.numeric.talon"
     },
+    "varname": {
+      "match": "([a-zA-Z0-9._])(_(list|\\d+))?",
+      "name": "variable.parameter.talon",
+      "captures": {
+        "2": {
+          "name": "constant.numeric.talon",
+          "patterns": [
+            {
+              "match": "_",
+              "name": "keyword.operator.talon"
+            }
+          ]
+        }
+      }
+    },
     "fstring": {
       "match": "({.+?})",
       "name": "constant.character.format.placeholder.talon"
@@ -142,12 +157,6 @@
         },
         {
           "include": "#fstring"
-        },
-        {
-          "include": "#key-mods"
-        },
-        {
-          "include": "#key-prefixes"
         }
       ]
     },
@@ -168,6 +177,32 @@
       "patterns": [
         {
           "include": "#string-body"
+        }
+      ]
+    },
+    "keystring": {
+      "begin": "(\"|')",
+      "end": "(\\1)|$",
+      "name": "string.quoted.double.talon",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.begin.talon"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.talon"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#string-body"
+        },
+        {
+          "include": "#key-mods"
+        },
+        {
+          "include": "#key-prefixes"
         }
       ]
     },
@@ -202,13 +237,13 @@
           "name": "variable.parameter.talon",
           "patterns": [
             {
-              "include": "#qstring"
-            },
-            {
               "include": "#key-prefixes"
             },
             {
               "include": "#key-mods"
+            },
+            {
+              "include": "#keystring"
             }
           ]
         },
@@ -284,6 +319,9 @@
         },
         {
           "include": "#operator"
+        },
+        {
+          "include": "#varname"
         }
       ],
       "name": "variable.parameter.talon"
@@ -372,17 +410,36 @@
               "include": "#comment"
             },
             {
-              "include": "#operator"
-            },
-            {
-              "include": "#number"
-            },
-            {
-              "include": "#qstring"
+              "include": "#expression"
             }
           ]
         }
       }
+    },
+    "expression": {
+      "patterns": [
+        {
+          "include": "#qstring-long"
+        },
+        {
+          "include": "#action-key"
+        },
+        {
+          "include": "#action"
+        },
+        {
+          "include": "#operator"
+        },
+        {
+          "include": "#number"
+        },
+        {
+          "include": "#qstring"
+        },
+        {
+          "include": "#varname"
+        }
+      ]
     },
     "statement": {
       "patterns": [
