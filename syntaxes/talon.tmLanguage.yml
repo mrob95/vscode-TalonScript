@@ -199,7 +199,7 @@ repository:
         name: punctuation.definition.parameters.end.talon
   # RULE ------------------------------------------------
   rule-definition:
-    begin: "^([^\\s][^\"']*?):"
+    begin: "^([^\\s].+?):"
     end: (?=^[^\s#])
     beginCaptures:
       "1":
