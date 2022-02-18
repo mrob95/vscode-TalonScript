@@ -28,6 +28,10 @@
                 "extensions": [
                     ".talon"
                 ],
+                "icon": {
+                    "light": "./icons/talon_border_small.bmp",
+                    "dark": "./icons/talon_border_small.bmp"
+                },
                 "configuration": "./language-configuration.json"
             }
         ],
