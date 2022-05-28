@@ -2,3 +2,12 @@
 .vscode-test/**
 .gitignore
 vsc-extension-quickstart.md
+get_ico.ps1
+icons/talon.bmp
+icons/talon.png
+icons/talon.svg
+icons/talon_big.png
+icons/talon_border.bmp
+icons/talon_small.png
+publish.txt
+test.talon
