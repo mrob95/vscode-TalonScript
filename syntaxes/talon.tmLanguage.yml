@@ -187,16 +187,6 @@ repository:
       - include: "#operator"
       - include: "#varname"
     name: variable.parameter.talon
-  action-action:
-    match: action(\()(.*)(\))
-    name: entity.name.function.talon
-    captures:
-      "1":
-        name: punctuation.definition.parameters.begin.talon
-      "2":
-        name: variable.parameter.talon
-      "3":
-        name: punctuation.definition.parameters.end.talon
   # RULE ------------------------------------------------
   rule-definition:
     begin: "^([^\\s].+?):"
@@ -205,15 +195,14 @@ repository:
       "1":
         name: entity.name.tag.talon
         patterns:
-          - include: "#rule-specials"
           - match: ^\^
             name: string.regexp.talon
           - match: \$$
             name: string.regexp.talon
           - include: "#action-key"
-          - include: "#action-action"
           - include: "#capture"
           - include: "#list"
+          - include: "#rule-specials"
     patterns:
       - include: "#statement"
   rule-specials:
