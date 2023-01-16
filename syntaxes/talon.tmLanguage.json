@@ -327,7 +327,7 @@
       "name": "variable.parameter.talon"
     },
     "rule-definition": {
-      "begin": "^([^\\s].+?):",
+      "begin": "^([^\\s].*?):",
       "end": "(?=^[^\\s#])",
       "beginCaptures": {
         "1": {
