@@ -218,7 +218,7 @@ repository:
     patterns:
       - include: "#statement"
   other-rule-definition:
-    begin: "^([a-z]+\\(.*[^\\-]\\)|[a-z]+\\(\\)):"
+    begin: "^([a-z]+\\(.*[^\\-]\\)|[a-z]+\\(.*--\\)|[a-z]+\\(-\\)|[a-z]+\\(\\)):"
     end: (?=^[^\s#])
     beginCaptures:
       "1":
