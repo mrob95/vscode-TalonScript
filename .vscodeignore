@@ -11,3 +11,5 @@ icons/talon_border.bmp
 icons/talon_small.png
 publish.txt
 test.talon
+TODO.md
+*.vsix

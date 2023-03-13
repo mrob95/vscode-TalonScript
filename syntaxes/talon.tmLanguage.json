@@ -102,7 +102,10 @@
           "include": "#comment"
         },
         {
-          "include": "#rule-definition"
+          "include": "#speech-rule-definition"
+        },
+        {
+          "include": "#other-rule-definition"
         }
       ]
     },
@@ -264,7 +267,7 @@
       }
     },
     "key-mods": {
-      "match": "(:)(up|down|\\d+)",
+      "match": "(:)(up|down|change|repeat|\\d+)",
       "captures": {
         "1": {
           "name": "keyword.operator.talon"
@@ -274,6 +277,26 @@
         }
       },
       "name": "keyword.operator.talon"
+    },
+    "action-gamepad": {
+      "match": "(deck|gamepad|action)(\\()(.*)(\\))",
+      "name": "entity.name.function.talon",
+      "captures": {
+        "2": {
+          "name": "punctuation.definition.parameters.begin.talon"
+        },
+        "3": {
+          "name": "variable.parameter.talon",
+          "patterns": [
+            {
+              "include": "#key-mods"
+            }
+          ]
+        },
+        "4": {
+          "name": "punctuation.definition.parameters.key.talon"
+        }
+      }
     },
     "argsep": {
       "match": ",",
@@ -326,8 +349,8 @@
       ],
       "name": "variable.parameter.talon"
     },
-    "rule-definition": {
-      "begin": "^([^\\s].*?):",
+    "speech-rule-definition": {
+      "begin": "^([A-Za-z0-9\\s'<>{}+*_.\\-^$]*?):",
       "end": "(?=^[^\\s#])",
       "beginCaptures": {
         "1": {
@@ -342,13 +365,32 @@
               "name": "string.regexp.talon"
             },
             {
-              "include": "#action-key"
-            },
-            {
               "include": "#capture"
             },
             {
               "include": "#list"
+            }
+          ]
+        }
+      },
+      "patterns": [
+        {
+          "include": "#statement"
+        }
+      ]
+    },
+    "other-rule-definition": {
+      "begin": "^([a-z]+\\(.*[^\\-]\\)|[a-z]+\\(\\)):",
+      "end": "(?=^[^\\s#])",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.tag.talon",
+          "patterns": [
+            {
+              "include": "#action-key"
+            },
+            {
+              "include": "#action-gamepad"
             },
             {
               "include": "#rule-specials"

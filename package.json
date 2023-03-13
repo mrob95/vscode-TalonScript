@@ -26,7 +26,8 @@
                     "talon"
                 ],
                 "extensions": [
-                    ".talon"
+                    ".talon",
+                    ".talon-list"
                 ],
                 "icon": {
                     "light": "./icons/talon_border_small.bmp",
