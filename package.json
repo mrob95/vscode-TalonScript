@@ -10,7 +10,7 @@
     },
     "displayName": "TalonFile syntax highlighting",
     "description": "Syntax highlighting for .talon files.",
-    "version": "0.3.15",
+    "version": "0.3.16",
     "engines": {
         "vscode": "^1.2.0"
     },
