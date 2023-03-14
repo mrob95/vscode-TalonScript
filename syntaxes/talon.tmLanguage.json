@@ -102,10 +102,10 @@
           "include": "#comment"
         },
         {
-          "include": "#speech-rule-definition"
+          "include": "#other-rule-definition"
         },
         {
-          "include": "#other-rule-definition"
+          "include": "#speech-rule-definition"
         }
       ]
     },
@@ -350,7 +350,7 @@
       "name": "variable.parameter.talon"
     },
     "speech-rule-definition": {
-      "begin": "^([A-Za-z0-9\\s'<>{}+*_.\\-^$]*?):",
+      "begin": "^(.*?):",
       "end": "(?=^[^\\s#])",
       "beginCaptures": {
         "1": {

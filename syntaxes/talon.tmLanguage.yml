@@ -34,7 +34,6 @@ repository:
     patterns:
       - match: \.
         name: support.other.match.any.regexp
-        # name: constant.other.set.regexp
       - match: \$
         name: support.other.match.end.regexp
       - match: \^
@@ -53,8 +52,8 @@ repository:
   body-noheader:
     patterns:
       - include: "#comment"
-      - include: "#speech-rule-definition"
       - include: "#other-rule-definition"
+      - include: "#speech-rule-definition"
   # ------------------------------------------------
   capture:
     match: (\<[a-zA-Z0-9._]+\>)
@@ -203,7 +202,7 @@ repository:
     name: variable.parameter.talon
   # RULE ------------------------------------------------
   speech-rule-definition:
-    begin: "^([A-Za-z0-9\\s'<>{}+*_.\\-^$]*?):"
+    begin: "^(.*?):"
     end: (?=^[^\s#])
     beginCaptures:
       "1":
