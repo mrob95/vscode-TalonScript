@@ -365,6 +365,18 @@
               "name": "string.regexp.talon"
             },
             {
+              "match": "\\(",
+              "name": "punctuation.definition.parameters.begin.talon"
+            },
+            {
+              "match": "\\)",
+              "name": "punctuation.definition.parameters.end.talon"
+            },
+            {
+              "match": "\\|",
+              "name": "punctuation.separator.talon"
+            },
+            {
               "include": "#capture"
             },
             {
