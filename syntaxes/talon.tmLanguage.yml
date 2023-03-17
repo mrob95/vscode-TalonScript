@@ -82,8 +82,16 @@ repository:
             name: keyword.operator.talon
   # STRINGS ------------------------------------------------
   fstring:
-    match: ({.+?})
+    match: "{(.+?)}"
     name: constant.character.format.placeholder.talon
+    captures:
+      "1":
+        patterns:
+          - include: "#action"
+          - include: "#operator"
+          - include: "#number"
+          - include: "#varname"
+          - include: "#qstring"
   string-body:
     patterns:
       - match: "{{|}}"
