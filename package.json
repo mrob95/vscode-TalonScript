@@ -34,6 +34,9 @@
                     "dark": "./icons/talon_border_small.bmp"
                 },
                 "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "talon-markdown-injection"
             }
         ],
         "grammars": [
@@ -41,6 +44,17 @@
                 "language": "talon",
                 "scopeName": "source.talon",
                 "path": "./syntaxes/talon.tmLanguage.json"
+            },
+            {
+                "language": "talon-markdown-injection",
+                "scopeName": "markdown.talon.codeblock",
+                "path": "./syntaxes/talon-markdown-injection.json",
+                "injectTo": [
+                    "text.html.markdown"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.block.talon": "talon"
+                }
             }
         ]
     }
