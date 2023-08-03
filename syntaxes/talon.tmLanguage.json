@@ -20,7 +20,7 @@
   ],
   "repository": {
     "header": {
-      "begin": "(?=^app:|title:|os:|tag:)",
+      "begin": "(?=^app:|title:|os:|tag:|list:|language:)",
       "end": "(?=^-$)",
       "patterns": [
         {

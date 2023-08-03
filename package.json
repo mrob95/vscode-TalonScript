@@ -26,7 +26,20 @@
                     "talon"
                 ],
                 "extensions": [
-                    ".talon",
+                    ".talon"
+                ],
+                "icon": {
+                    "light": "./icons/talon_border_small.bmp",
+                    "dark": "./icons/talon_border_small.bmp"
+                },
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "talon-list",
+                "aliases": [
+                    "Talon List"
+                ],
+                "extensions": [
                     ".talon-list"
                 ],
                 "icon": {
@@ -42,6 +55,11 @@
         "grammars": [
             {
                 "language": "talon",
+                "scopeName": "source.talon",
+                "path": "./syntaxes/talon.tmLanguage.json"
+            },
+            {
+                "language": "talon-list",
                 "scopeName": "source.talon",
                 "path": "./syntaxes/talon.tmLanguage.json"
             },
