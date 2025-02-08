@@ -1,5 +1,6 @@
 .vscode/**
 .vscode-test/**
+./samples/**
 .gitignore
 vsc-extension-quickstart.md
 get_ico.ps1
