@@ -1,3 +1,5 @@
+
+# Example from the talon wiki https://talon.wiki/Customization/talon-files
 # Comments must be on their own line (optionally preceeded by whitespace)
 some [<user.letter>] command:
     # or operator is used to deal with optional or alternative command parts. It works as the null
