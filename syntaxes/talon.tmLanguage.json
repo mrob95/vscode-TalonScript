@@ -233,7 +233,7 @@
     "qstring-long": {
       "begin": "(\"\"\"|''')",
       "end": "(\\1)",
-      "name": "string.quoted.double.talon",
+      "name": "string.quoted.triple.talon",
       "beginCaptures": {
         "1": {
           "name": "punctuation.definition.string.begin.talon"
@@ -452,26 +452,24 @@
       }
     },
     "assignment": {
-      "match": "(\\S*)(\\s?=\\s?)(.*)",
-      "captures": {
+      "begin": "(\\S*)(\\s?=\\s?)",
+      "end": "\n",
+      "beginCaptures": {
         "1": {
           "name": "variable.other.talon"
         },
         "2": {
           "name": "keyword.operator.talon"
-        },
-        "3": {
-          "name": "variable.other.talon",
-          "patterns": [
-            {
-              "include": "#comment"
-            },
-            {
-              "include": "#expression"
-            }
-          ]
         }
-      }
+      },
+      "patterns": [
+        {
+          "include": "#comment"
+        },
+        {
+          "include": "#expression"
+        }
+      ]
     },
     "expression": {
       "patterns": [
